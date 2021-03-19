@@ -7,6 +7,20 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validator, validationResult } = require('express-validator');
 
+//@route GET api/auth
+//@descrip test route
+//@access Public
+router.get('/', auth, async (req, res) => {
+	//auth is the middleware used to verify the token. hence we add it as a parameter
+	try {
+		const user = await User.findById(req.user.id); //in the middleware we put the value of decoded.user to req.user.thats y we can use it hereto get id
+		res.send(user);
+	} catch (err) {
+		console.log(err.message);
+		res.status(500).send('SERVER ERROR');
+	}
+});
+
 //@Route POST api/auth
 //logging in and getting token
 router.post(
