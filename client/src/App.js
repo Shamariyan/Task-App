@@ -5,8 +5,19 @@ import React, { component, Fragment } from 'react';
 import Loginpage from './components/auth/Loginpage';
 import Registerpage from './components/auth/Registerpage';
 import Homepage from './components/Homepage';
+import { useEffect } from 'react';
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+import Privateroute from '../src/components/privateroute/Privateroute';
+
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
 
 const App = () => {
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
 	return (
 		<Provider store={store}>
 			<Router>
@@ -14,7 +25,7 @@ const App = () => {
 					<Switch>
 						<Route exact path='/' component={Loginpage} />
 						<Route exact path='/register' component={Registerpage} />
-						<Route exact path='/home' component={Homepage} />
+						<Privateroute exact path='/home' component={Homepage} />
 					</Switch>
 				</Fragment>
 			</Router>

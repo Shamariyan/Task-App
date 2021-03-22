@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import Alert from '../Alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Registerpage = ({ register }) => {
+const Registerpage = ({ register, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -25,6 +25,10 @@ const Registerpage = ({ register }) => {
 		register({ name, email, password });
 		console.log('success');
 	};
+
+	if (isAuthenticated) {
+		return <Redirect to='/home' />;
+	}
 
 	return (
 		<Fragment>
@@ -95,7 +99,12 @@ const Registerpage = ({ register }) => {
 };
 
 Registerpage.propTypes = {
-	register: PropTypes.func.isRequired
+	register: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { register })(Registerpage);
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { register })(Registerpage);
