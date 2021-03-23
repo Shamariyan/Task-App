@@ -41,13 +41,15 @@ router.post(
 
 router.get('/user/:user_id', auth, async (req, res) => {
 	try {
-		const task = await Task.find({ user: req.params.user_id });
-		if (task) {
+		const task = await Task.find({ user: req.params.user_id }).sort({
+			date: -1
+		});
+		if (!task) {
 			return res
 				.status(400)
 				.json({ message: 'This user does not have any task' });
 		}
-		task.map(t => res.json({ t }));
+		res.send(task);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send(`SERVER ERROR`);

@@ -7,3 +7,7 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT = 'LOGOUT';
 export const USER_LOADED = 'USER_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const GET_TASKS = 'GET_TASKS';
+export const ADD_TASK = 'ADD_TASK';
+export const REMOVE_TASKS = 'REMOVE_TASKS';
+export const TASKS_ERROR = 'TASKS_ERROR';

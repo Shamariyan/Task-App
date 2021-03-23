@@ -10,7 +10,9 @@ import {
 	AUTH_ERROR,
 	LOGIN_SUCCESS,
 	LOGIN_FAILED,
-	LOGOUT
+	LOGOUT,
+	REMOVE_TASKS,
+	GET_TASKS
 } from './types';
 
 //Load user
@@ -74,7 +76,7 @@ export const login = (email, password) => async dispatch => {
 		dispatch({ type: LOGIN_SUCCESS, payload: response.data });
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const errors = err.response;
 		if (errors) {
 			Array.from(errors).forEach(error => {
 				dispatch(setAlert(error.msg, 'danger'));
@@ -90,4 +92,5 @@ export const login = (email, password) => async dispatch => {
 //logout
 export const logout = () => dispatch => {
 	dispatch({ type: LOGOUT });
+	dispatch({ type: REMOVE_TASKS });
 };

@@ -12,11 +12,12 @@ const TaskSchema = new mongoose.Schema([
 			required: true
 		},
 		name: {
-			type: String
+			type: String,
+			required: true
 		},
 		date: {
 			type: Date,
-			default: Date.now
+			default: Date.now()
 		},
 		status: {
 			type: Boolean,

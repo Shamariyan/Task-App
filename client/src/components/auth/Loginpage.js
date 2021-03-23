@@ -5,7 +5,9 @@ import { Link, Redirect } from 'react-router-dom';
 import Alert from '../Alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { loadUser, login } from '../../actions/auth';
+import { useEffect } from 'react';
+import { getTasks } from '../../actions/task';
 
 const Loginpage = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
@@ -22,6 +24,10 @@ const Loginpage = ({ login, isAuthenticated }) => {
 		e.preventDefault();
 		login(email, password);
 	};
+
+	useEffect(() => {
+		loadUser();
+	}, [loadUser]);
 
 	//redirecting if logged in
 	if (isAuthenticated) {
