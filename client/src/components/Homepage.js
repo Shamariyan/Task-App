@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ADD_TASK } from '../actions/types';
 import moment from 'moment';
+import Alert from './Alert';
+import { loadUser } from '../actions/auth';
 
 const Homepage = ({ getTasks, addTask, user, loading }) => {
 	useEffect(() => {
@@ -15,6 +17,7 @@ const Homepage = ({ getTasks, addTask, user, loading }) => {
 			const { _id } = user;
 			console.log(_id);
 			getTasks(_id);
+			loadUser();
 		}
 	}, []);
 
@@ -41,6 +44,7 @@ const Homepage = ({ getTasks, addTask, user, loading }) => {
 	return (
 		<Fragment>
 			<Navbar></Navbar>
+			<Alert></Alert>
 			<form
 				className='input-group mb-3  mt-3 w-90 p-4 d-flex justify-content-center'
 				onSubmit={e => onSubmit(e)}>
@@ -49,13 +53,13 @@ const Homepage = ({ getTasks, addTask, user, loading }) => {
 					name='text'
 					value={text}
 					onChange={e => handleChange(e)}
-					className='form-control'
+					className='form-control shadow  mb-5 bg-body rounded'
 					placeholder='Enter your task here'
 					aria-label='task field'
 					aria-describedby='button-addon2'
 				/>
 				<button
-					className='btn btn-outline-secondary bg-primary bg-gradient text-white'
+					className='btn btn-outline-secondary bg-primary bg-gradient text-white shadow  mb-5'
 					type='submit'
 					id='button-addon2'>
 					Add task

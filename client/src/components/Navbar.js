@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
 import { Redirect } from 'react-router';
 
-const Navbar = ({ logout, loading, user, isAuthenticated }) => {
+const Navbar = ({ logout, isAuthenticated }) => {
 	if (!isAuthenticated) {
 		return <Redirect to='/' />;
 	}
@@ -33,14 +33,12 @@ const Navbar = ({ logout, loading, user, isAuthenticated }) => {
 Navbar.propTypes = {
 	logout: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool.isRequired,
-	user: PropTypes.object.isRequired
+	loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	loading: state.auth.loading,
-	user: state.auth.user
+	loading: state.auth.loading
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

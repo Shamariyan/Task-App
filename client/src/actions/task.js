@@ -1,5 +1,5 @@
 import axios from 'axios';
-import setAlert from './alert';
+import { setAlert } from './alert';
 
 import { GET_TASKS, TASKS_ERROR, ADD_TASK } from './types';
 
@@ -12,6 +12,7 @@ export const getTasks = _id => async dispatch => {
 
 		dispatch({ type: GET_TASKS, payload: res.data });
 	} catch (err) {
+		dispatch(setAlert(err.message, 'danger'));
 		dispatch({
 			type: TASKS_ERROR
 		});
@@ -37,10 +38,14 @@ export const addTask = text => async dispatch => {
 			payload: res.data
 		});
 	} catch (err) {
-		if (err) {
-			dispatch({
-				type: TASKS_ERROR
-			});
-		}
+		// const errors = err.response.data.errors;
+		// if (errors) {
+		// 	errors.forEach(error => {
+
+		// 	});
+		// } else {
+		dispatch({
+			type: TASKS_ERROR
+		});
 	}
 };

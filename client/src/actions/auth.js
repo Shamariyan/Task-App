@@ -51,7 +51,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 		const errors = err.response.data.errors;
 		if (errors) {
 			Array.from(errors).forEach(error => {
-				dispatch(setAlert(error.msg, 'danger'));
+				dispatch(setAlert(error.message, 'danger'));
 			});
 		} else {
 			dispatch({
@@ -76,16 +76,16 @@ export const login = (email, password) => async dispatch => {
 		dispatch({ type: LOGIN_SUCCESS, payload: response.data });
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response;
-		if (errors) {
-			Array.from(errors).forEach(error => {
-				dispatch(setAlert(error.msg, 'danger'));
-			});
-		} else {
-			dispatch({
-				type: LOGIN_FAILED
-			});
-		}
+		// const errors = err.response.data.errors;
+		// if (errors) {
+		// 	errors.forEach(error => {
+		// 		dispatch(setAlert(error.msg, 'danger'));
+		// 	});
+		// } else {
+		dispatch({
+			type: LOGIN_FAILED
+		});
+		dispatch(setAlert('Invalid Credentials', 'danger'));
 	}
 };
 

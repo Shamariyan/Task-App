@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { register } from '../../actions/auth';
+import { loadUser, register } from '../../actions/auth';
 import Alert from '../Alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,6 +27,7 @@ const Registerpage = ({ register, isAuthenticated }) => {
 	};
 
 	if (isAuthenticated) {
+		loadUser();
 		return <Redirect to='/home' />;
 	}
 

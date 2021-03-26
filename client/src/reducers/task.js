@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
 			console.log('into add task action reducer');
 			return {
 				...state,
-				tasks: [payload, ...state.tasks],
+				tasks: [payload, ...state],
 				loading: false
 			};
 		case TASKS_ERROR:
