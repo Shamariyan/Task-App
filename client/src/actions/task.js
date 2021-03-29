@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 
-import { GET_TASKS, TASKS_ERROR, ADD_TASK } from './types';
+import { GET_TASKS, TASKS_ERROR, ADD_TASK, DELETE_TASK } from './types';
 
 //get current user profile
 
@@ -44,6 +44,20 @@ export const addTask = text => async dispatch => {
 
 		// 	});
 		// } else {
+		dispatch({
+			type: TASKS_ERROR
+		});
+	}
+};
+
+//delete task of the user
+
+export const deleteTask = id => async dispatch => {
+	try {
+		const res = await axios.delete(`api/tasks/${id}`);
+		dispatch({ type: DELETE_TASK, payload: id });
+	} catch (err) {
+		dispatch(setAlert('into error part of delete task', 'danger'));
 		dispatch({
 			type: TASKS_ERROR
 		});

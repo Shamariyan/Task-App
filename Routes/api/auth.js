@@ -69,4 +69,46 @@ router.post(
 		}
 	}
 );
+//@Route POST api/auth/admin
+//logging in and getting token
+router.post(
+	'/admin',
+	[
+		check('username', 'Please include a valid email').exists(),
+		check('password', 'Please enter the correct password').exists()
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		const { username, password } = req.body;
+		try {
+			//const user = await User.findOne({ email: email });
+			if (!(username === 'Administrator' && password === 'administrator')) {
+				return res
+					.status(400)
+					.json({ errors: [{ message: 'Invalid Credentials' }] });
+			}
+			const payload = {
+				user: {
+					name: 'administrator'
+				}
+			};
+
+			jwt.sign(
+				payload,
+				config.get('jwtsecret'),
+				{ expiresIn: 3600000 },
+				(err, token) => {
+					if (err) throw err;
+					res.json({ token, payload });
+				}
+			);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).send('SERVER ERROR');
+		}
+	}
+);
 module.exports = router;

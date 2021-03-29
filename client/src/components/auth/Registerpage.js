@@ -88,7 +88,7 @@ const Registerpage = ({ register, isAuthenticated }) => {
 							required
 						/>
 					</div>
-					<div className='d-flex justify-content-center m-4 '>
+					<div className='  d-grid gap-2 col-6 mx-auto m-4'>
 						<button type='submit' className='btn btn-primary'>
 							Submit
 						</button>

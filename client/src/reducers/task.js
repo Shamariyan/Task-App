@@ -2,7 +2,8 @@ import {
 	GET_TASKS,
 	TASKS_ERROR,
 	ADD_TASK,
-	REMOVE_TASKS
+	REMOVE_TASKS,
+	DELETE_TASK
 } from '../actions/types';
 
 const initialState = {
@@ -29,11 +30,18 @@ export default function (state = initialState, action) {
 				tasks: [payload, ...state],
 				loading: false
 			};
+		case DELETE_TASK:
+			return {
+				...state,
+				tasks: state.tasks.filter(task => task._id !== payload),
+				loading: false
+			};
 		case TASKS_ERROR:
 			console.log('into task error action reducer');
 			return {
 				...state,
-				error: payload
+				error: payload,
+				loading: false
 			};
 		case REMOVE_TASKS:
 			return {

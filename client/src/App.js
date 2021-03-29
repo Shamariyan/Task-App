@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import Privateroute from '../src/components/privateroute/Privateroute';
+import Adminpage from './components/Adminpage';
+import Adminlogin from './components/auth/Adminlogin';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -25,6 +27,8 @@ const App = () => {
 					<Switch>
 						<Route exact path='/' component={Loginpage} />
 						<Route exact path='/register' component={Registerpage} />
+						<Route exact path='/adminlogin' component={Adminlogin} />
+						<Privateroute exact path='/adminpage' component={Adminpage} />
 						<Privateroute exact path='/home' component={Homepage} />
 					</Switch>
 				</Fragment>

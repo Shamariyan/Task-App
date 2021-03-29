@@ -63,6 +63,7 @@ const Loginpage = ({ login, isAuthenticated }) => {
 							onChange={e => handleChange(e)}
 							aria-describedby='emailHelp'
 							placeholder='Enter email'
+							required
 						/>
 					</div>
 					<div className='form-group mt-3' style={{ minWidth: 300 }}>
@@ -74,13 +75,17 @@ const Loginpage = ({ login, isAuthenticated }) => {
 							name='password'
 							onChange={e => handleChange(e)}
 							placeholder='Password'
+							required
 						/>
 					</div>
-					<div className='d-flex justify-content-center m-4 '>
+					<div className=' d-grid gap-2 col-6 mx-auto m-4'>
 						<button type='submit' className='btn btn-primary'>
 							Login
 						</button>
 					</div>
+					<h8 className='d-flex justify-content-center m-1'>
+						Admin user? <Link to='/adminlogin'>Login here</Link>
+					</h8>
 				</form>
 			</div>
 		</Fragment>

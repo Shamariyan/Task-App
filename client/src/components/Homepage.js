@@ -14,12 +14,12 @@ import { loadUser } from '../actions/auth';
 const Homepage = ({ getTasks, addTask, user, loading }) => {
 	useEffect(() => {
 		if (!loading && user) {
-			const { _id } = user;
-			console.log(_id);
-			getTasks(_id);
+			// const { _id } = user;
+			// console.log(_id);
+			// getTasks(_id);
 			loadUser();
 		}
-	}, []);
+	}, [loadUser]);
 
 	const [formData, setFormData] = useState({
 		text: ''

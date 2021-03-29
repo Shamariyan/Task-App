@@ -7,14 +7,16 @@ import {
 	LOGIN_FAILED,
 	USER_LOADED,
 	AUTH_ERROR,
-	LOGOUT
+	LOGOUT,
+	GET_USERS
 } from '../actions/types';
 
 const initialState = {
 	token: localStorage.getItem('token'),
 	isAuthenticated: null,
 	loading: true,
-	user: null
+	user: null,
+	users: []
 };
 
 export default function (state = initialState, action) {
@@ -48,6 +50,12 @@ export default function (state = initialState, action) {
 				isAuthenticated: false,
 				loading: false,
 				user: null
+			};
+		case GET_USERS:
+			return {
+				...state,
+				loading: false,
+				users: payload
 			};
 
 		default:

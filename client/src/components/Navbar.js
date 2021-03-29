@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
 import { Redirect } from 'react-router';
 
-const Navbar = ({ logout, isAuthenticated }) => {
+const Navbar = ({ logout, isAuthenticated, loading, user }) => {
 	if (!isAuthenticated) {
 		return <Redirect to='/' />;
 	}
@@ -13,7 +13,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
 		<Fragment>
 			<nav className='navbar navbar-dark bg-dark'>
 				<div className='container-fluid'>
-					<a className='navbar-brand'> Tasks app</a>
+					<a className='navbar-brand'>{loading ? 'Task app' : `Tasks app`}</a>;
 					<form className='d-flex'>
 						<button
 							className='btn btn-outline-success'
@@ -33,12 +33,14 @@ const Navbar = ({ logout, isAuthenticated }) => {
 Navbar.propTypes = {
 	logout: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool.isRequired
+	loading: PropTypes.bool.isRequired,
+	user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	loading: state.auth.loading
+	loading: state.auth.loading,
+	user: state.auth.user
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

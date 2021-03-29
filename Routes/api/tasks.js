@@ -58,4 +58,23 @@ router.get('/user/:user_id', auth, async (req, res) => {
 	}
 });
 
+//DELETE api/tasks/:id
+//delete a post by id
+//private
+
+router.delete('/:id', auth, async (req, res) => {
+	try {
+		const task = await Task.findById(req.params.id);
+		if (!task) {
+			res.status(400).send(`User not authorized`);
+		}
+		await task.remove();
+		res.send(`The task is removed`);
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(404).json({ msg: 'task not found' });
+	}
+});
+
 module.exports = router;
