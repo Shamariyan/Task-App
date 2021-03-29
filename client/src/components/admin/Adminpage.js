@@ -5,6 +5,7 @@ import { getUsers } from '../../actions/auth';
 import Users from './Users';
 import Navbar from '../Navbar';
 import Alert from '../Alert';
+import Admintasks from './Admintasks';
 
 const Adminpage = ({ getUsers, loading, users }) => {
 	useEffect(() => {
@@ -17,12 +18,17 @@ const Adminpage = ({ getUsers, loading, users }) => {
 		<Fragment>
 			<Navbar></Navbar>
 			<Alert></Alert>
+			<div style={{ backgroundImage: 'url(/bg.jpg)' }} />
 			<h2 className='d-flex mt-5 justify-content-center'>-----Users-----</h2>
 			<div className='d-flex  flex-wrap justify-content-center'>
 				{users.map(u => (
 					<Users key={u._id} user={u} />
 				))}
 			</div>
+			<h2 className='d-flex  flex-wrap justify-content-center'>
+				-----Tasks-----
+			</h2>
+			<Admintasks />
 		</Fragment>
 	);
 };

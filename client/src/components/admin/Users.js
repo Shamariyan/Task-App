@@ -16,6 +16,8 @@ const Users = ({ user, loading, getUsers, getTasks, task }) => {
 	const gettasksofuser = (e, _id) => {
 		e.preventDefault();
 		getTasks(_id);
+		if (task) {
+		}
 	};
 
 	if (!loading && user) {
@@ -29,7 +31,7 @@ const Users = ({ user, loading, getUsers, getTasks, task }) => {
 						<h5 className='card-title d-flex justify-content-center '>
 							{`${name}`}
 						</h5>
-						<div class='d-flex flex-wrap justify-content-center shadow mt-4 '>
+						<form class='d-flex flex-wrap justify-content-center shadow mt-4 '>
 							<Link
 								to='/admintasks'
 								class='btn btn-primary'
@@ -37,7 +39,7 @@ const Users = ({ user, loading, getUsers, getTasks, task }) => {
 								type='button'>
 								View Tasks
 							</Link>
-						</div>
+						</form>
 					</div>
 				</div>
 			</Fragment>

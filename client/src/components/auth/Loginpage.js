@@ -9,7 +9,7 @@ import { loadUser, login } from '../../actions/auth';
 import { useEffect } from 'react';
 import { getTasks } from '../../actions/task';
 
-const Loginpage = ({ login, isAuthenticated }) => {
+const Loginpage = ({ login, isAuthenticated, user }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -31,7 +31,7 @@ const Loginpage = ({ login, isAuthenticated }) => {
 
 	//redirecting if logged in
 	if (isAuthenticated) {
-		return <Redirect to='/home' />;
+		if (user !== '') return <Redirect to='/home' />;
 	}
 
 	return (
@@ -98,7 +98,8 @@ Loginpage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
+	isAuthenticated: state.auth.isAuthenticated,
+	user: state.auth.user
 });
 
 export default connect(mapStateToProps, { login })(Loginpage);

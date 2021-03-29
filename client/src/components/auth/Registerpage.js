@@ -7,7 +7,7 @@ import Alert from '../Alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Registerpage = ({ register, isAuthenticated }) => {
+const Registerpage = ({ register, isAuthenticated, user }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -28,7 +28,9 @@ const Registerpage = ({ register, isAuthenticated }) => {
 
 	if (isAuthenticated) {
 		loadUser();
-		return <Redirect to='/home' />;
+		if (user !== '') {
+			return <Redirect to='/home' />;
+		}
 	}
 
 	return (
@@ -105,7 +107,8 @@ Registerpage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
+	isAuthenticated: state.auth.isAuthenticated,
+	user: state.auth.user
 });
 
 export default connect(mapStateToProps, { register })(Registerpage);
