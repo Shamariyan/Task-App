@@ -1,14 +1,22 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getUsers } from '../actions/auth';
+import { getUsers } from '../../actions/auth';
+import { getTasks } from '../../actions/task';
+import { Link, Redirect } from 'react-router-dom';
+import Admintasks from './Admintasks';
 
-const Users = ({ user, loading, getUsers }) => {
+const Users = ({ user, loading, getUsers, getTasks, task }) => {
 	useEffect(() => {
 		if (!loading) {
 			getUsers();
 		}
 	}, [getUsers]);
+
+	const gettasksofuser = (e, _id) => {
+		e.preventDefault();
+		getTasks(_id);
+	};
 
 	if (!loading && user) {
 		const { name, _id } = user;
@@ -22,9 +30,13 @@ const Users = ({ user, loading, getUsers }) => {
 							{`${name}`}
 						</h5>
 						<div class='d-flex flex-wrap justify-content-center shadow mt-4 '>
-							<button class='btn btn-primary' type='button'>
+							<Link
+								to='/admintasks'
+								class='btn btn-primary'
+								onClick={e => gettasksofuser(e, _id)}
+								type='button'>
 								View Tasks
-							</button>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -39,7 +51,8 @@ Users.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	loading: state.auth.loading
+	loading: state.auth.loading,
+	task: state.task.tasks
 });
 
-export default connect(mapStateToProps, { getUsers })(Users);
+export default connect(mapStateToProps, { getUsers, getTasks })(Users);
