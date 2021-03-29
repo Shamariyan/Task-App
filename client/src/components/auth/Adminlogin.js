@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Adminlogin = ({ adminlogin, isAuthenticated }) => {
+const Adminlogin = ({ adminlogin, isAuthenticated, user }) => {
 	const [formData, setFormData] = useState({
 		username: '',
 		password: ''
@@ -25,7 +25,7 @@ const Adminlogin = ({ adminlogin, isAuthenticated }) => {
 		adminlogin(username, password);
 	};
 
-	if (isAuthenticated) {
+	if (isAuthenticated && user === '') {
 		return <Redirect to='/adminpage' />;
 	}
 
@@ -95,7 +95,8 @@ Adminlogin.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
+	isAuthenticated: state.auth.isAuthenticated,
+	user: state.auth.user
 });
 
 export default connect(mapStateToProps, { adminlogin })(Adminlogin);

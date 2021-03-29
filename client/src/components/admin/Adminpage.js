@@ -6,13 +6,18 @@ import Users from './Users';
 import Navbar from '../Navbar';
 import Alert from '../Alert';
 import Admintasks from './Admintasks';
+import { Redirect } from 'react-router';
 
-const Adminpage = ({ getUsers, loading, users }) => {
+const Adminpage = ({ getUsers, loading, users, user }) => {
 	useEffect(() => {
 		if (!loading) {
 			getUsers();
 		}
 	}, [getUsers]);
+
+	if (user === '') {
+		<Redirect to='/adminpage' />;
+	}
 
 	return (
 		<Fragment>
@@ -40,7 +45,8 @@ Adminpage.propTypes = {
 
 const mapStateToProps = state => ({
 	loading: state.auth.loading,
-	users: state.auth.users
+	users: state.auth.users,
+	user: state.auth.user
 });
 
 export default connect(mapStateToProps, { getUsers })(Adminpage);
